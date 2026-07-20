@@ -1,0 +1,557 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+    /* Color Palette: Luxury Gemstone */
+    --lap-bg-pure: #FAF8F4;              /* warm luxury ivory (page background) */
+    --lap-card-bg: #FFFFFF;              /* pure white (cards) */
+    --lap-text-dark: #1F1A17;            /* deep charcoal brown */
+    --lap-text-muted: #6E6257;           /* luxury muted brown */
+    --lap-neon-accent: #fbff04;          /* Primary Accent: Emerald Green */
+    --lap-hover-accent: #e9c527;         /* Hover Accent: Rich Emerald */
+    --lap-gold: #C8A75A;                 /* Gold Accent: Luxury Gold */
+    --lap-soft-gold: #E6D4A3;            /* Soft Gold: Light Premium Gold */
+    --lap-border-color: #201d19;         /* warm beige border */
+    --lap-dark-section: #181512;         /* luxury dark brown (dark sections) */
+
+    /* Typography */
+    --lap-font-main: 'Manrope', sans-serif;          /* body font */
+    --lap-font-heading: 'Cormorant Garamond', serif; /* heading font */
+    
+    /* Spacing & Layout */
+    --lap-spacing-sm: 8px;
+    --lap-spacing-md: 16px;
+    --lap-spacing-lg: 24px;
+    --lap-spacing-xl: 40px;
+    --lap-radius-sharp: 0px;
+    --lap-radius-slight: 4px;
+    
+    /* Transitions & Easing */
+    --lap-ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --lap-ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --lap-transition-fast: all 0.2s var(--lap-ease-smooth);
+    --lap-transition-med: all 0.4s var(--lap-ease-smooth);
+    
+    /* Shadows */
+    --lap-glow-neon: 0 0 25px rgba(200,167,90,.18);
+    --lap-shadow-soft: 0 12px 35px rgba(31,26,23,.08);
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET & GLOBAL STYLES
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--lap-bg-pure);
+    color: var(--lap-text-dark);
+    font-family: var(--lap-font-main);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    user-select: none;
+    
+}
+
+/* Enforce font on all inputs, textareas, and buttons */
+input, textarea, button, select {
+    font-family: var(--lap-font-main);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--lap-font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+/* --------------------------------------------------------------------------
+   3. BADGE / LABEL (FIXED VISIBILITY)
+   -------------------------------------------------------------------------- */
+/* The previous neon on white was unreadable. This fixes the contrast by 
+   using a dark background with the neon accent as the text. */
+.badge-cyber {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--lap-text-dark);
+    color: var(--lap-neon-accent);
+    padding: 6px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: var(--lap-radius-slight);
+    box-shadow: var(--lap-shadow-soft);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle scanning line effect for the badge */
+.badge-cyber::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(200,167,90,0.2), transparent);
+    animation: cyber-scan 3s infinite linear;
+}
+
+/* --------------------------------------------------------------------------
+   4. BUTTON ARCHITECTURE
+   -------------------------------------------------------------------------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 36px;
+    font-family: var(--lap-font-main);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    border-radius: var(--lap-radius-slight);
+    transition: var(--lap-transition-med);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    text-decoration: none;
+}
+
+/* Active / Click State for all buttons */
+.btn:active {
+    transform: scale(0.95);
+    transition: var(--lap-transition-fast);
+}
+
+/* --- BUTTON TYPE 1: NEON BUTTON --- */
+.btn-neon {
+    background-color: var(--lap-neon-accent);
+    color: var(--lap-text-dark);
+    border: 2px solid var(--lap-neon-accent);
+    box-shadow: 0 4px 15px rgba(200,167,90,0.2);
+}
+
+.btn-neon:hover {
+    box-shadow: var(--lap-glow-neon);
+    transform: translateY(-3px);
+    background-color: var(--lap-hover-accent); /* Rich emerald on hover */
+}
+
+/* --- BUTTON TYPE 2: NO BG ONLY BORDER --- */
+.btn-outline {
+    background-color: transparent;
+    color: var(--lap-text-dark);
+    border: 2px solid var(--lap-text-dark);
+}
+
+.btn-outline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--lap-text-dark);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s var(--lap-ease-smooth);
+    z-index: -1;
+}
+
+.btn-outline:hover {
+    color: var(--lap-neon-accent);
+    border-color: var(--lap-text-dark);
+    transform: translateY(-3px);
+}
+
+.btn-outline:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* --- BUTTON TYPE 3: DOTTED BORDER --- */
+.btn-dotted {
+    background-color: transparent;
+    color: var(--lap-text-dark);
+    border: 2px dotted var(--lap-text-dark);
+}
+
+.btn-dotted:hover {
+    border-style: solid;
+    background-color: rgba(31, 26, 23, 0.03);
+    color: var(--lap-text-dark);
+    transform: translateY(-3px);
+    box-shadow: 4px 4px 0px var(--lap-neon-accent); /* Emerald offset shadow */
+}
+
+/* --------------------------------------------------------------------------
+   5. LUCIDE ICONS INTEGRATION
+   -------------------------------------------------------------------------- */
+/* Ensures icons inside buttons or text align perfectly with the Manrope font */
+.lucide {
+    width: 1.2em;
+    height: 1.2em;
+    stroke-width: 2.2;
+    vertical-align: middle;
+    display: inline-block;
+    transition: var(--lap-transition-fast);
+}
+
+.btn:hover .lucide {
+    transform: scale(1.1);
+}
+
+/* --------------------------------------------------------------------------
+   6. CUSTOM ANIMATIONS
+   -------------------------------------------------------------------------- */
+/* Utility Classes for Animations */
+.animate-slide-up { animation: slideUpFade 0.8s var(--lap-ease-smooth) forwards; }
+.animate-fade-in { animation: fadeIn 1s var(--lap-ease-smooth) forwards; }
+.animate-pulse-neon { animation: neonPulse 2s infinite; }
+
+/* Keyframes */
+@keyframes slideUpFade {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes neonPulse {
+    0% { box-shadow: 0 0 5px rgba(200,167,90,0.4); }
+    50% { box-shadow: 0 0 20px rgba(200,167,90,0.8), 0 0 40px rgba(200,167,90,0.2); }
+    100% { box-shadow: 0 0 5px rgba(200,167,90,0.4); }
+}
+
+@keyframes cyber-scan {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+/* ==========================================================================
+   © 2026 Niles & Sinai TRADEMARK. ALL RIGHTS RESERVED.
+   ==========================================================================
+   VERSION:        1.0.0
+   THEME:          Gilded Edge (Luxury Gemstone) — Custom Scroller
+   ADD TO:         base.css  (paste at bottom, or @import this file)
+
+   FEATURES:
+   - WebKit custom scrollbar  (Chrome, Edge, Safari)
+   - Firefox scrollbar-color / scrollbar-width
+   - Animated neon thumb — glows on hover, pulses on active/drag
+   - Thin rail with subtle track ticks
+   - Corner piece styled
+   - Utility class  .lc-scroll  for inner containers (modals, drawers, sheets)
+   - Dark variant   .lc-scroll-dark  for dark-bg containers
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   SHARED SCROLL KEYFRAMES
+   -------------------------------------------------------------------------- */
+@keyframes lc-thumb-glow-idle {
+  0%,100% { box-shadow: 0 0 4px rgba(200,167,90,.35),
+                         inset 0 0 6px rgba(200,167,90,.15); }
+  50%     { box-shadow: 0 0 10px rgba(200,167,90,.6),
+                         inset 0 0 12px rgba(200,167,90,.25); }
+}
+
+@keyframes lc-thumb-glow-active {
+  0%,100% { box-shadow: 0 0 14px rgba(200,167,90,.8),
+                         0 0 30px rgba(200,167,90,.35),
+                         inset 0 0 10px rgba(200,167,90,.3); }
+  50%     { box-shadow: 0 0 22px rgba(200,167,90,1),
+                         0 0 50px rgba(200,167,90,.5),
+                         inset 0 0 18px rgba(200,167,90,.45); }
+}
+
+/* Scan-line shimmer that runs DOWN the thumb */
+@keyframes lc-thumb-scan {
+  0%   { background-position: 0 -100%; }
+  100% { background-position: 0  200%; }
+}
+
+/* --------------------------------------------------------------------------
+   GLOBAL / <HTML> SCROLLBAR
+   -------------------------------------------------------------------------- */
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #C8A75A #14110E;
+}
+
+/* WebKit — sizing */
+::-webkit-scrollbar {
+  width:  7px;
+  height: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #181512;
+  border-left: 1px solid #2A241E;
+
+  /* subtle repeating tick marks */
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 10px,
+      rgba(200,167,90,.06) 10px,
+      rgba(200,167,90,.06) 11px
+    );
+}
+
+/* Track hover — slightly lighter */
+::-webkit-scrollbar-track:hover {
+  background-color: #211C17;
+}
+
+/* Thumb — the scrolling handle */
+::-webkit-scrollbar-thumb {
+  background:
+    /* scanning shimmer overlay */
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.12) 0%,
+      rgba(255,255,255,0)   40%,
+      rgba(255,255,255,0)   60%,
+      rgba(255,255,255,.08) 100%
+    ),
+    /* core neon gradient */
+    linear-gradient(
+      180deg,
+      #D9BE7A 0%,
+      #C8A75A 40%,
+      #B8934A 100%
+    );
+  background-size: 100% 100%, 100% 100%;
+
+  border-radius: 2px;
+  border: none;
+  min-height: 40px;
+
+  /* idle glow pulse */
+  animation: lc-thumb-glow-idle 3s ease-in-out infinite;
+
+  /* hardware-accelerate */
+  will-change: box-shadow;
+  transition: background .25s ease, transform .2s ease;
+}
+
+/* Thumb — hover state */
+::-webkit-scrollbar-thumb:hover {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.2) 0%,
+      rgba(255,255,255,0)  40%
+    ),
+    linear-gradient(180deg, #E6D4A3 0%, #C8A75A 50%, #B8934A 100%);
+
+  /* Faster scan shimmer */
+  animation: lc-thumb-glow-idle 1.4s ease-in-out infinite;
+  transform: scaleX(1.25);
+  border-radius: 3px;
+}
+
+/* Thumb — active/drag state */
+::-webkit-scrollbar-thumb:active {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.25) 0%,
+      rgba(255,255,255,0)   35%
+    ),
+    linear-gradient(180deg, #F0DFAE 0%, #C8A75A 45%, #9C7F3F 100%);
+
+  animation: lc-thumb-glow-active 1s ease-in-out infinite;
+  transform: scaleX(1.5);
+  border-radius: 3px;
+}
+
+/* Corner piece (where horizontal + vertical scrollbars meet) */
+::-webkit-scrollbar-corner {
+  background: #181512;
+  border-top: 1px solid rgba(200,167,90,.2);
+  border-left: 1px solid rgba(200,167,90,.2);
+}
+
+/* --------------------------------------------------------------------------
+   UTILITY CLASS  .lc-scroll
+   Use on modals, drawers, side panels, overflowing cards, etc.
+   -------------------------------------------------------------------------- */
+.lc-scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #C8A75A #F1ECE2;
+}
+
+/* Light-bg variant (drawers, search results, cart) */
+.lc-scroll::-webkit-scrollbar { width: 5px; }
+
+.lc-scroll::-webkit-scrollbar-track {
+  background: #F1ECE2;
+  border-left: 1px solid #DDD3C6;
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 8px,
+      rgba(31,26,23,.04) 8px,
+      rgba(31,26,23,.04) 9px
+    );
+}
+
+.lc-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #D9BE7A 0%, #C8A75A 50%, #B8934A 100%);
+  border-radius: 2px;
+  min-height: 30px;
+  border: 1px solid rgba(31,26,23,.08);
+  animation: lc-thumb-glow-idle 3s ease-in-out infinite;
+}
+
+.lc-scroll::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #D9BE7A 0%, #C8A75A 100%);
+  animation: lc-thumb-glow-idle 1.2s ease-in-out infinite;
+  transform: scaleX(1.3);
+}
+
+.lc-scroll::-webkit-scrollbar-thumb:active {
+  background: #C8A75A;
+  animation: lc-thumb-glow-active 1s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   DARK VARIANT  .lc-scroll-dark
+   Use inside dark panels, terminal boxes, code blocks, etc.
+   -------------------------------------------------------------------------- */
+.lc-scroll-dark {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #C8A75A #14110E;
+}
+
+.lc-scroll-dark::-webkit-scrollbar { width: 5px; }
+
+.lc-scroll-dark::-webkit-scrollbar-track {
+  background: #14110E;
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 10px,
+      rgba(200,167,90,.07) 10px,
+      rgba(200,167,90,.07) 11px
+    );
+}
+
+.lc-scroll-dark::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #D9BE7A 0%, #C8A75A 50%, #B8934A 100%);
+  border-radius: 2px; min-height: 30px;
+  animation: lc-thumb-glow-idle 3s ease-in-out infinite;
+}
+
+.lc-scroll-dark::-webkit-scrollbar-thumb:hover {
+  animation: lc-thumb-glow-idle 1.2s ease-in-out infinite;
+  transform: scaleX(1.4);
+}
+
+.lc-scroll-dark::-webkit-scrollbar-thumb:active {
+  animation: lc-thumb-glow-active .9s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   THIN VARIANT  .lc-scroll-thin
+   1px hairline rail — for tight UI zones (dropdowns, small lists)
+   -------------------------------------------------------------------------- */
+.lc-scroll-thin {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #C8A75A transparent;
+}
+
+.lc-scroll-thin::-webkit-scrollbar { width: 3px; }
+
+.lc-scroll-thin::-webkit-scrollbar-track { background: transparent; }
+
+.lc-scroll-thin::-webkit-scrollbar-thumb {
+  background: #C8A75A;
+  border-radius: 99px;
+  animation: lc-thumb-glow-idle 3s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   HORIZONTAL VARIANT  .lc-scroll-x
+   For horizontally scrolling rows / carousels
+   -------------------------------------------------------------------------- */
+.lc-scroll-x {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #C8A75A #F1ECE2;
+}
+
+.lc-scroll-x::-webkit-scrollbar { height: 4px; }
+
+.lc-scroll-x::-webkit-scrollbar-track {
+  background: #F1ECE2;
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      transparent 0px,
+      transparent 8px,
+      rgba(31,26,23,.04) 8px,
+      rgba(31,26,23,.04) 9px
+    );
+}
+
+.lc-scroll-x::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #D9BE7A 0%, #C8A75A 50%, #B8934A 100%);
+  border-radius: 2px;
+  animation: lc-thumb-glow-idle 3s ease-in-out infinite;
+}
+
+.lc-scroll-x::-webkit-scrollbar-thumb:hover {
+  animation: lc-thumb-glow-idle 1.2s ease-in-out infinite;
+  transform: scaleY(1.5);
+}
+
+/* --------------------------------------------------------------------------
+   SMOOTH SCROLL BEHAVIOUR  (global)
+   -------------------------------------------------------------------------- */
+html { scroll-behavior: smooth; }
+
+/* Respect reduced-motion preference — keep function, kill animations */
+@media (prefers-reduced-motion: reduce) {
+  ::-webkit-scrollbar-thumb,
+  .lc-scroll::-webkit-scrollbar-thumb,
+  .lc-scroll-dark::-webkit-scrollbar-thumb,
+  .lc-scroll-thin::-webkit-scrollbar-thumb,
+  .lc-scroll-x::-webkit-scrollbar-thumb {
+    animation: none;
+    box-shadow: 0 0 6px rgba(200,167,90,.4);
+  }
+  html { scroll-behavior: auto; }
+}

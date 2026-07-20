@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Gemstone Jewellery Website Conversion Guide
 
 ## Project Overview
@@ -614,3 +615,7 @@ Only the following should change:
 - Copywriting
 
 Everything else must remain unchanged.
+=======
+# NileAndSinaic
+A Luxury Jewellery E-Commerce Experience
+>>>>>>> d89f535649ff1ee3c71c15d5556bfa97ed640930

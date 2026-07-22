@@ -61,7 +61,13 @@ $categories = [
 /* ═══════════════════════════════════════════════════════════
    CATEGORIES SECTION
 ═══════════════════════════════════════════════════════════ */
-
+:root {
+  --cat-pad-y: clamp(64px, 9vw, 110px);
+  --cat-pad-x: clamp(20px, 5vw, 80px);
+  --cat-orb:   clamp(130px, 15vw, 178px);
+  --cat-ease:  cubic-bezier(0.4,0,0.2,1);
+  --cat-spring:cubic-bezier(0.34,1.56,0.64,1);
+}
 
 /* ── SHELL ── */
 .lc-cat-section {

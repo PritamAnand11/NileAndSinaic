@@ -1,15 +1,4 @@
 <?php
-/**
- * ==========================================================================
- * © 2026 Niles & Sinai TRADEMARK. ALL RIGHTS RESERVED.
- * ==========================================================================
- * FILE PATH:  /Assets/Website/Contents/Landing/LC-CS-004.php
- * VERSION:    1.0.0
- * THEME:      Neon Edge (Cyberpunk) Light
- * DEPENDS ON: base.css + nav.php
- * ==========================================================================
- */
-
 $categories = [
   [
     'slug'  => 'rings',

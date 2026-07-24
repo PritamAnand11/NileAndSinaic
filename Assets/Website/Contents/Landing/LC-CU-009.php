@@ -1,16 +1,4 @@
 <?php
-/**
- * ==========================================================================
- * © 2026 Niles & Sinai TRADEMARK. ALL RIGHTS RESERVED.
- * ==========================================================================
- * FILE PATH:  /Assets/Website/Contents/Landing/LC-CU-009.php
- * VERSION:    1.0.0 (Premium Enterprise Contact Hub)
- * THEME:      Neon Edge Light
- * DEPENDS ON: base.css + nav.php
- * SECTION:    High-Conversion Contact & Direct Hotline Matrix
- * ==========================================================================
- */
-
 $contactConfig = [
     'hotline'    => '+91 74707 26731',
     'hotline_raw'=> '917470726731',
